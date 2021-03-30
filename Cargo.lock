@@ -203,14 +203,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d7afe4a420e3fe79967a00898cc1f4db7c8a49a9333a29f8a4bd76a253d5cd04"
 
 [[package]]
-name = "hello-rs"
-version = "0.1.0"
-dependencies = [
- "netlify_lambda_http",
- "tokio",
-]
-
-[[package]]
 name = "hermit-abi"
 version = "0.1.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -597,6 +589,14 @@ name = "redox_syscall"
 version = "0.1.57"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "41cc0f7e4d5d4544e8861606a285bb08d3e70712ccc7d2b84d7c0ccfaf4b05ce"
+
+[[package]]
+name = "rusty-bunny-rs"
+version = "0.1.0"
+dependencies = [
+ "netlify_lambda_http",
+ "tokio",
+]
 
 [[package]]
 name = "ryu"
