@@ -1,3 +1,9 @@
-Netlify Functions with support for Rust.
-
-<a href="/.netlify/functions/hello-rs">Click here to invoke Rust code</a>
+<script>
+  (async () => {
+    const response = await fetch(
+      `/.netlify/functions/rusty-bunny-rs${window.location.search}`
+    ).then(async (val) => await val.text());
+    document.getElementById("response").textContent = response;
+  })();
+</script>
+<p id="response"></p>
