@@ -1,9 +1,21 @@
 <script>
   (async () => {
-    const response = await fetch(
+    const GOOGLE_URL = `https://google.com/search?q=`;
+    let searchQuery = window.location.search;
+    let redirect = await fetch(
       `/.netlify/functions/rusty-bunny-rs${window.location.search}`
     ).then(async (val) => await val.text());
-    document.getElementById("response").textContent = response;
+    if (redirect) {
+      try {
+        new URL(redirect);
+        window.location.replace(redirect);
+      } catch (_) {
+        // invalid redirect_url
+        window.location.replace(`${GOOGLE_URL}${searchQuery}`);
+        return false;
+      }
+      document.getElementById("response").textContent = response;
+    }
   })();
 </script>
 <p id="response"></p>
