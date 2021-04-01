@@ -65,8 +65,7 @@ fn search(cmd: String) -> Redirect {
 }
 
 #[lambda(http)]
-#[tokio::main]
-async fn main() {
+fn main() {
     rocket::ignite()
         .mount("/", routes![index, search, favicon])
         .launch();
