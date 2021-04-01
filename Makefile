@@ -5,6 +5,8 @@ help: ## Show this help.
 
 build: ## Build static binary and put it in the functions directory.
 	@rustup toolchain install nightly 
+	@rustup default nightly
+	@rustup target add x86_64-unknown-linux-musl
 	@cargo +nightly build --release --target x86_64-unknown-linux-musl
 	@mkdir -p functions
 	@cp target/x86_64-unknown-linux-musl/release/bunny functions
