@@ -595,6 +595,7 @@ name = "rusty-bunny-rs"
 version = "0.1.0"
 dependencies = [
  "netlify_lambda_http",
+ "percent-encoding",
  "tokio",
 ]
 
