@@ -14,8 +14,6 @@ mod utils;
 
 type Error = Box<dyn std::error::Error + Send + Sync + 'static>;
 
-mod utils;
-
 #[get("/favicon.ico")]
 fn favicon() -> Option<NamedFile> {
     NamedFile::open("./static/favicon.co").ok()
