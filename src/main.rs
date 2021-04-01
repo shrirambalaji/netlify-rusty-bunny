@@ -1,3 +1,10 @@
+#![feature(proc_macro_hygiene, decl_macro)]
+
+#[macro_use]
+extern crate rocket;
+
+use rocket::response::NamedFile;
+use rocket::response::Redirect;
 use netlify_lambda_http::{
     lambda::{lambda, Context},
     IntoResponse, Request, RequestExt,
@@ -7,16 +14,23 @@ mod utils;
 
 type Error = Box<dyn std::error::Error + Send + Sync + 'static>;
 
-#[allow(dead_code)]
-fn search(_cmd: String) -> String {
-    todo!()
+mod utils;
+
+#[get("/favicon.ico")]
+fn favicon() -> Option<NamedFile> {
+    NamedFile::open("./static/favicon.co").ok()
 }
 
-#[lambda(http)]
-#[tokio::main]
-async fn main(request: Request, _: Context) -> Result<impl IntoResponse, Error> {
-    let query_string = request.query_string_parameters();
-    let cmd = query_string.get("cmd").unwrap_or_else(|| "");
+#[get("/")]
+fn index() -> &'static str {
+    "Hello, world!"
+}
+
+// rename cmd to query
+#[get("/search?<cmd>")]
+fn search(cmd: String) -> Redirect {
+    // We need a way to match only on the cmd, without losing the rest of the query
+    // "tw something"
     let command = utils::get_command_from_query_string(&cmd);
 
     // Keep in alphabetic order
@@ -47,5 +61,13 @@ async fn main(request: Request, _: Context) -> Result<impl IntoResponse, Error> 
         _ => utils::google::construct_google_search_url(&cmd),
     };
 
-    Ok(redirect_url)
+    Redirect::to(redirect_url)
+}
+
+#[lambda(http)]
+#[tokio::main]
+async fn main() {
+    rocket::ignite()
+        .mount("/", routes![index, search, favicon])
+        .launch();
 }

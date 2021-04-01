@@ -1,12 +1,13 @@
 [package]
-name = "rusty-bunny-rs"
+name = "bunny"
 version = "0.1.0"
-authors = ["Shriram Balaji <shrirambalaji1996@gmail.com>"]
+authors = ["Joe Previte", "Shriram Balaji <shrirambalaji1996@gmail.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 netlify_lambda_http = "0.2"
-tokio = { version = "1.0.1", features = ["macros"] }
 percent-encoding = "2.1.0"
+rocket = "0.4.4"
+tokio = { version = "1.0.1", features = ["macros"] }
